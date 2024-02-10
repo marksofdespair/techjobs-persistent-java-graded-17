@@ -4,15 +4,21 @@ package org.launchcode.techjobs.persistent.models;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
+@MappedSuperclass // No parents for table class
 public abstract class AbstractEntity {
-
+    @Id // All subclasses will be entities, annotation
+    @GeneratedValue // Annotation
     private int id;
 
+    @NotNull(message = "Required Field") // Ensures user cannot leave blank
+    @NotBlank(message = "Required Field") // Ensures user cannot leave blank
+    @Size(max = 150) // Lomg
     private String name;
 
     public int getId() {
