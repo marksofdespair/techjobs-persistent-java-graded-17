@@ -18,7 +18,7 @@ public abstract class AbstractEntity {
 
     @NotNull(message = "Required Field") // Ensures user cannot leave blank
     @NotBlank(message = "Required Field") // Ensures user cannot leave blank
-    @Size(max = 150) // Lomg
+    @Size(max = 150) // Lomg boi
     private String name;
 
     public int getId() {
