@@ -17,6 +17,7 @@ public class Employer extends AbstractEntity {
     @Size(max = 100)
     private String location;
 
+    // Will represent the list of all items in a given job after Job Class setup
     @OneToMany
     @JoinColumn(name = "employer_id")
     private List<Job> jobs = new ArrayList<>();
