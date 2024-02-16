@@ -10,16 +10,16 @@ import jakarta.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity // Will be mapped to a table
+@Entity // Will be mapped to a table, persists
 public class Employer extends AbstractEntity {
-    @NotNull(message = "Location is required.")
-    @NotBlank(message = "Location is required.")
-    @Size(max = 100)
+    @NotNull(message = "Location is required.") // Validation no empty
+    @NotBlank(message = "Location is required.") // Validation NO EMPTY
+    @Size(max = 150) // More lomg
     private String location;
 
     // Will represent the list of all items in a given job after Job Class setup
-    @OneToMany
-    @JoinColumn(name = "employer_id")
+    @OneToMany // One employer, many (or not) jobs
+    @JoinColumn(name = "employer_id") // Employer should = employer ID
     private List<Job> jobs = new ArrayList<>();
 
     public Employer(){}

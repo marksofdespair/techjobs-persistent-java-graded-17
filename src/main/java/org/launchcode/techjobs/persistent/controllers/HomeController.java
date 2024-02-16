@@ -22,13 +22,13 @@ import java.util.Optional;
  */
 @Controller
 public class HomeController {
-    @Autowired
+    @Autowired // Allows Spring to resolve and inject collaborating beans (objects) into our bean (object)
     private EmployerRepository employerRepository;
 
-    @Autowired
+    @Autowired // // Allows Spring to resolve and inject collaborating beans (objects) into our bean (object)
     private SkillRepository skillRepository;
 
-    @Autowired
+    @Autowired // Allows Spring to resolve and inject collaborating beans (objects) into our bean (object)
     private JobRepository jobRepository;
 
     @RequestMapping("/")
@@ -52,22 +52,22 @@ public class HomeController {
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
                                     Errors errors, Model model, @RequestParam int employerId,
-                                    @RequestParam List<Integer> skills) {
-        if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Job");
+                                    @RequestParam List<Integer> skills) { // Retrieves skills via integer
+        if (errors.hasErrors()) { // Method checks if there are any validation errors in newJob object
+            model.addAttribute("title", "Add Job"); // If there are validation errors, adds an attribute named "title" with the value "Add Job" to the model
             return "add";
         } else {
             Optional<Employer> optEmployer = employerRepository.findById(employerId);
-            if(optEmployer.isPresent()){
+            if(optEmployer.isPresent()){ // If the employer exists, retrieves it from the `Optional`
                 Employer employer = optEmployer.get();
-                newJob.setEmployer(employer);
+                newJob.setEmployer(employer); // Set the retrieved employer to the new job object
             }else{
-                newJob.setEmployer(new Employer());
+                newJob.setEmployer(new Employer()); // If the employer does not exist, sets a new empty employer to the new job object
             }
-            List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
-            newJob.setSkills(skillObjs);
-            jobRepository.save(newJob);
-            return "redirect:";
+            List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills); // Retrieves a list of Skill objects from the database via provided skill IDs
+            newJob.setSkills(skillObjs); // Sets the retrieved skills to the new job object
+            jobRepository.save(newJob); // Saves the new job object w/ associated skill/employer info to the database
+            return "redirect:"; // If there are no validation errors and the job is saved successfully, it redirects to the default URL
         }
     }
 

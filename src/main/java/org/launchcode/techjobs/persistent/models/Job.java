@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity // Will be mapped to a table, persists
 public class Job extends AbstractEntity {
     @ManyToOne
     private Employer employer;

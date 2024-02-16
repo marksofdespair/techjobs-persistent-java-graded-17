@@ -10,16 +10,16 @@ import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
-@MappedSuperclass // No parents for table class
+@MappedSuperclass // No parents for table class(?) I mean no table for this parent class
 public abstract class AbstractEntity {
-    @Id // All subclasses will be entities, annotation
-    @GeneratedValue // Annotation
+    @Id // All subclasses will be entities, annotation, inherited
+    @GeneratedValue // Annotation, inherited
     private int id;
 
     @NotNull(message = "Required Field") // Ensures user cannot leave blank
     @NotBlank(message = "Required Field") // Ensures user cannot leave blank
     @Size(max = 150) // Lomg boi
-    private String name;
+    private String name; // Also inherited
 
     public int getId() {
         return id;
